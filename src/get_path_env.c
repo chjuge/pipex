@@ -20,9 +20,7 @@ char	**get_path_env(char **env)
 
 	i = 0;
 	while(env[i] && ft_strncmp(env[i], "PATH=", 5) != 0)
-	{
 		i++;
-	}
 	path = ft_strdup(env[i]);
 	path_env = ft_split(path + 5, ':');
 	free(path);

@@ -1,46 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mproveme <mproveme@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/13 12:40:06 by mproveme          #+#    #+#             */
-/*   Updated: 2022/03/20 18:24:34 by mproveme         ###   ########.fr       */
+/*   Created: 2022/03/20 19:11:16 by mproveme          #+#    #+#             */
+/*   Updated: 2022/03/20 19:20:41 by mproveme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/pipex.h"
 
-static void print_all(char **env)
+static char	**join_null(char **arr)
 {
+	char	**new_arr;
+	int	len;
 	int	i;
 
-	i = 0;
-	write(1, "\n\n", 2);
-	while (env[i])
-	{
-		printf("'%s'\n", env[i]);
-		i++;
-	}
+	new_arr = malloc(sizeof(char *) * len);
+	while (arr[i]) /// не дописал тут
+		len++;
+	
 }
 
-int	main(int argc, char **argv, char **envp)
+char	**get_cmd(char *str)
 {
-	int	file_in;
-	int	file_out;
-	int	fd[2];
-	char	**path_env;
+	char	**res;
 
-	if (argc != 5)
-	{
-		ft_putstr_fd("Wrong number of params\n", 2);
-		exit(EXIT_FAILURE);
-	}
-	fd[0] = try_open_r(argv[1]);
-	fd[1] = try_open_w(argv[4]);
-
-	
-	// path_env = get_path_env(envp);
-
+	res = ft_split(str, " ");
+	res = join_null(res);
+	return (res);
 }
