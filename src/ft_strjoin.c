@@ -1,39 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   try_open.c                                         :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mproveme <mproveme@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/13 19:07:49 by mproveme          #+#    #+#             */
-/*   Updated: 2022/03/21 19:26:38 by mproveme         ###   ########.fr       */
+/*   Created: 2022/03/21 13:02:39 by mproveme          #+#    #+#             */
+/*   Updated: 2022/03/21 15:10:31 by mproveme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/pipex.h"
 
-int	try_open_r(char *path)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int	fd;
+	int		len1;
+	int		len2;
+	int		i;
+	int		j;
+	char	*new_str;
 
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	new_str = malloc(sizeof(char) * (len1 + len2 + 1));
+	if (!new_str)
+		return (0);
+	i = -1;
+	j = 0;
+	while (++i < len1)
+		new_str[i] = s1[i];
+	while (i < (len1 + len2))
 	{
-		perror(path);
-		exit(EXIT_FAILURE);
+		new_str[i] = s2[j];
+		i++;
+		j++;
 	}
-	return (fd);
-}
-
-int	try_open_w(char *path)
-{
-	int	fd;
-
-	fd = open(path, O_CREAT | O_TRUNC | O_RDWR, 0000644);
-	if (fd < 0)
-	{
-		perror("Can't write into (create) file");
-		exit(EXIT_FAILURE);
-	}
-	return (fd);
+	new_str[i] = '\0';
+	return (new_str);
 }

@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_path_env.c                                    :+:      :+:    :+:   */
+/*   fill_cmd_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mproveme <mproveme@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/13 19:34:32 by mproveme          #+#    #+#             */
-/*   Updated: 2022/01/13 19:36:29 by mproveme         ###   ########.fr       */
+/*   Created: 2022/03/21 13:54:11 by mproveme          #+#    #+#             */
+/*   Updated: 2022/03/21 21:04:26 by mproveme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/pipex.h"
 
-char	**get_path_env(char **env)
+char	*fill_cmd_line(char **cmd, char *cmd_old)
 {
-	int		i;
-	char	*path;
-	char	**path_env;
+	int	i;
 
+	if (access(cmd_old, 0) == 0)
+		return (ft_strdup(cmd_old));
 	i = 0;
-	while(env[i] && ft_strncmp(env[i], "PATH=", 5) != 0)
+	while (cmd[i])
+	{
+		if (access(cmd[i], 0) == 0)
+			return (cmd[i]);
 		i++;
-	path = ft_strdup(env[i]);
-	path_env = ft_split(path + 5, ':');
-	free(path);
-	return (path_env);
+	}
+	return (0);
 }

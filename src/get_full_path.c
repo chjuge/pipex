@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_cmd.c                                          :+:      :+:    :+:   */
+/*   get_full_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mproveme <mproveme@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/20 19:11:16 by mproveme          #+#    #+#             */
-/*   Updated: 2022/03/20 19:20:41 by mproveme         ###   ########.fr       */
+/*   Created: 2022/03/21 13:23:45 by mproveme          #+#    #+#             */
+/*   Updated: 2022/03/21 21:14:30 by mproveme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/pipex.h"
 
-static char	**join_null(char **arr)
+char	**get_full_paths(char **paths, char **cmd, int strs_cnt)
 {
 	char	**new_arr;
-	int	len;
-	int	i;
+	int		i;
+	char	*tmp_str;
 
-	new_arr = malloc(sizeof(char *) * len);
-	while (arr[i]) /// не дописал тут
-		len++;
-	
-}
-
-char	**get_cmd(char *str)
-{
-	char	**res;
-
-	res = ft_split(str, " ");
-	res = join_null(res);
-	return (res);
+	new_arr = malloc(sizeof(char *) * (strs_cnt + 1));
+	i = 0;
+	new_arr[strs_cnt] = 0;
+	while (i < strs_cnt)
+	{
+		tmp_str = ft_strjoin(paths[i], "/");
+		new_arr[i] = ft_strjoin(tmp_str, cmd[0]);
+		free(tmp_str);
+		printf("---> %s <---  --> %p <--\n", new_arr[i], new_arr[i]);
+		i++;
+	}
+	return (new_arr);
 }

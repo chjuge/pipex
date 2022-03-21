@@ -1,39 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   try_open.c                                         :+:      :+:    :+:   */
+/*   get_path_env.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mproveme <mproveme@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/13 19:07:49 by mproveme          #+#    #+#             */
-/*   Updated: 2022/03/21 19:26:38 by mproveme         ###   ########.fr       */
+/*   Created: 2022/01/13 19:34:32 by mproveme          #+#    #+#             */
+/*   Updated: 2022/01/13 19:36:29 by mproveme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/pipex.h"
 
-int	try_open_r(char *path)
+char	**parse_path(char **env)
 {
-	int	fd;
+	int		i;
+	char	*path;
+	char	**path_arr;
 
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-	{
-		perror(path);
-		exit(EXIT_FAILURE);
-	}
-	return (fd);
-}
-
-int	try_open_w(char *path)
-{
-	int	fd;
-
-	fd = open(path, O_CREAT | O_TRUNC | O_RDWR, 0000644);
-	if (fd < 0)
-	{
-		perror("Can't write into (create) file");
-		exit(EXIT_FAILURE);
-	}
-	return (fd);
+	i = 0;
+	while (env[i] && ft_strncmp(env[i], "PATH=", 5) != 0)
+		i++;
+	path = ft_strdup(env[i]);
+	path_arr = ft_split(path + 5, ':');
+	free(path);
+	return (path_arr);
 }
